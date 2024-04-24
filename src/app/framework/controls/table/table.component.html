@@ -1,31 +1,37 @@
-<table class="custom-table flex" [ngClass]="{ 'flex': !rowObjects || rowObjects.length === 0 }">
-  <tr>
-    @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
-      <th class="custom-table__header">
-        {{columnDefinition.label}}
-      </th>
-    }
-  </tr>
-
-  @for (rowObject of rowObjects; track rowObject.id) {
+<div class="table-container" >
+  <table class="table flex" [ngClass]="{ 'flex': !rowObjectsToShow || rowObjectsToShow.length === 0 }">
     <tr>
       @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
-        @if (isImage(rowObject[columnDefinition.attr])) {
-          <img class="custom-table__cell image" src={{rowObject[columnDefinition.attr]}}>
-        }
-        @else if (isDate(rowObject[columnDefinition.attr])) {
-          <td class="custom-table__cell">{{parseDate(rowObject[columnDefinition.attr])}}</td>
-        }
-        @else {
-          <td class="custom-table__cell">{{rowObject[columnDefinition.attr]}}</td>
-        }
+        <th class="table__header">
+          {{columnDefinition.label}}
+        </th>
       }
     </tr>
-  }
   
-  <tr>
-    @if (!rowObjects || rowObjects.length === 0) {
-      <span class="custom-table__no-items-found" >No items found.</span>
+    @for (rowObject of rowObjectsToShow; track rowObject.id) {
+      <tr>
+        @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
+          @if (isURL(rowObject[columnDefinition.attr])) {
+            <img class="table__cell image" src={{rowObject[columnDefinition.attr]}}>
+          }
+          @else if (isDate(rowObject[columnDefinition.attr])) {
+            <td class="table__cell">{{parseDate(rowObject[columnDefinition.attr])}}</td>
+          }
+          @else {
+            <td class="table__cell">{{rowObject[columnDefinition.attr]}}</td>
+          }
+        }
+      </tr>
     }
-  </tr>
-</table>
+    
+    <tr>
+      @if (!rowObjectsToShow || rowObjectsToShow.length === 0) {
+        <span class="table__no-items-found" >No items found.</span>
+      }
+    </tr>
+  </table>
+  <div class="footer">
+    <span>{{rowObjectsToShow.length}} Resultados</span>
+    <select-field [model]="rowQuantity" attr="value" [options]="options" (onChange)="onRowQuantityChange($event)"></select-field>
+  </div>
+</div>

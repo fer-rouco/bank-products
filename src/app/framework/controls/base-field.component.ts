@@ -33,6 +33,10 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
+  public onFieldChange(value: string): void {
+    this.onChange.emit(value);
+  }
+
   public onInputChange(): void {
     this.updateModel();
   }

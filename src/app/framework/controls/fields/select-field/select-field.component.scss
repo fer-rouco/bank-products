@@ -3,8 +3,9 @@
 .select-field {
 
   padding: var(--control-padding);
+  padding-right: 2rem;
   
-  border: none;
+  border: var(--control-border);
   border-radius: var(--control-border-radius);
  
   -webkit-appearance: none !important;

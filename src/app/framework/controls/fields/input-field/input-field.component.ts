@@ -9,7 +9,4 @@ import { BaseFieldComponent } from '../../base-field.component';
 export class InputFieldComponent extends BaseFieldComponent {
   @Input() public type: string = '';
 
-  onFieldChange(value: string): void {
-    this.onChange.emit(value);
-  }
 }

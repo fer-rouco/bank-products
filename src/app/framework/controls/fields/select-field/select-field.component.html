@@ -1,6 +1,7 @@
 <field for="select_" label="{{label}}">
   <select
     [(ngModel)]="visualModel"
+    (ngModelChange)="onFieldChange($event)"
     autocomplete="off"
     class="form-control select-field"
     placeholder=""
