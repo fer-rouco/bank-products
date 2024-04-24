@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   Component,
   Input,
+  Output,
   OnChanges,
   OnInit,
   SimpleChanges,
+  EventEmitter
 } from '@angular/core';
 
 @Component({
@@ -16,6 +18,8 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public model: any; // eslint-disable-line
   @Input() public attr: string = '';
   @Input() public enabled: boolean = true;
+  @Input() public placeholder: string = '';
+  @Output() public onChange: EventEmitter<string> = new EventEmitter();
 
   public visualModel: string = '';
 

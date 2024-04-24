@@ -5,6 +5,8 @@ import { InputFieldComponent } from './controls/fields/input-field/input-field.c
 import { SelectFieldComponent } from './controls/fields/select-field/select-field.component';
 import { FormsModule } from '@angular/forms';
 import { FieldComponent } from './controls/fields/field/field.component';
+import { TextFieldComponent } from './controls/fields/text-field/text-field.component';
+
 import { NumericFieldComponent } from './controls/fields/numeric-field/numeric-field.component';
 import { BaseFieldComponent } from './controls/base-field.component';
 import { CustomButtonComponent } from './controls/button/button.component';
@@ -18,6 +20,7 @@ import { NotificationComponent } from './generic/notification/notification.compo
     FieldComponent,
     BaseFieldComponent,
     InputFieldComponent,
+    TextFieldComponent,
     SelectFieldComponent,
     NumericFieldComponent,
     CustomButtonComponent,
@@ -28,6 +31,7 @@ import { NotificationComponent } from './generic/notification/notification.compo
   exports: [
     PanelComponent,
     InputFieldComponent,
+    TextFieldComponent,
     NumericFieldComponent,
     SelectFieldComponent,
     CustomButtonComponent,

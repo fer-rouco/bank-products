@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { BaseFieldComponent } from '../../base-field.component';
 
 @Component({
@@ -8,4 +8,8 @@ import { BaseFieldComponent } from '../../base-field.component';
 })
 export class InputFieldComponent extends BaseFieldComponent {
   @Input() public type: string = '';
+
+  onFieldChange(value: string): void {
+    this.onChange.emit(value);
+  }
 }

@@ -1,1 +1,6 @@
-<custom-table [rowObjects]="products" [columnDefinitions]="columnDefinition" ></custom-table>
+<div class="field">
+  <text-field [model]="searchModel" attr="search" (onChange)="onSearchChange($event)" placeholder="Search..."></text-field>
+</div>
+<div>
+  <custom-table [rowObjects]="productsToShow" [columnDefinitions]="columnDefinition" ></custom-table>
+</div>
