@@ -1,11 +1,21 @@
 @import '../../../variables';
 
 .custom-button {
-  margin: var(--control-margin);
-  padding: var(--control-padding);
-
-  border: var(--control-border);
-  border-radius: var(--control-border-radius);
-
+  padding: calc(var(--control-padding) * 2);
+  background-color: #F5DF66; 
+  border: none;
   cursor: pointer;
+  font-weight: bold;
+
+  .label {
+    cursor: pointer;
+  }
+  
+  &:hover {
+    background-color: #a8983a;
+  }
+
+  &:disabled {
+    opacity: 50%;
+  }
 }

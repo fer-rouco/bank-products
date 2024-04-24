@@ -1,5 +1,6 @@
 import { Component, Inject, signal } from '@angular/core';
 import type { OnInit, WritableSignal } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { FrameworkModule } from '../../../framework/framework.module';
@@ -23,7 +24,10 @@ export class ProductListComponent implements OnInit {
 
   private subject: Subject<any> = new Subject();
 
-  constructor(@Inject(ProductService) private productService: ProductService) {}
+  constructor(
+    @Inject(Router) protected router: Router,
+    @Inject(ProductService) private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     this.columnDefinition = [
@@ -50,6 +54,10 @@ export class ProductListComponent implements OnInit {
 
   filterByName(name: string): void {
     this.productsToShow = this.products.filter((product: Product) => product.name.includes(name));
+  }
+
+  navigateToAddPage(): void {
+    this.router.navigateByUrl('/product-edit');
   }
 
 }

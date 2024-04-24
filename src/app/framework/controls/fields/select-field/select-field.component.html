@@ -1,5 +1,6 @@
-<field for="select_" label="{{label}}">
+<field for="select_{{attr}}" label="{{label}}">
   <select
+    id="select_{{attr}}"
     [(ngModel)]="visualModel"
     (ngModelChange)="onFieldChange($event)"
     autocomplete="off"
