@@ -1,0 +1,51 @@
+@import '../../../variables';
+
+
+.custom-table {
+  background-color: #ffffff;
+
+  &.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__header {
+    &:first-of-type {
+      border-top-left-radius: var(--border-radius);
+      border-end-start-radius: var(--border-radius);
+    }
+
+    &:last-of-type {
+      border-top-right-radius: var(--border-radius);
+      border-end-end-radius: var(--border-radius);
+    }
+
+    text-align: left;
+    padding: 1rem;
+    border-bottom: #eeeeee 1px solid;
+  }
+
+  &__cell {
+    padding: 1rem;
+    border-bottom: #eeeeee 1px solid;
+
+    &.image {
+      max-width: 50px;
+    }
+  }
+
+  &__no-items-found {
+    &:first-of-type {
+      border-top-left-radius: var(--border-radius);
+      border-end-start-radius: var(--border-radius);
+    }
+
+    &:last-of-type {
+      border-top-right-radius: var(--border-radius);
+      border-end-end-radius: var(--border-radius);
+    }
+
+    padding: 1rem;
+  }
+}

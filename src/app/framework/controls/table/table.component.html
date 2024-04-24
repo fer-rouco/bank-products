@@ -1,0 +1,31 @@
+<table class="custom-table flex" [ngClass]="{ 'flex': !rowObjects || rowObjects.length === 0 }">
+  <tr>
+    @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
+      <th class="custom-table__header">
+        {{columnDefinition.label}}
+      </th>
+    }
+  </tr>
+
+  @for (rowObject of rowObjects; track rowObject.id) {
+    <tr>
+      @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
+        @if (isImage(rowObject[columnDefinition.attr])) {
+          <img class="custom-table__cell image" src={{rowObject[columnDefinition.attr]}}>
+        }
+        @else if (isDate(rowObject[columnDefinition.attr])) {
+          <td class="custom-table__cell">{{parseDate(rowObject[columnDefinition.attr])}}</td>
+        }
+        @else {
+          <td class="custom-table__cell">{{rowObject[columnDefinition.attr]}}</td>
+        }
+      }
+    </tr>
+  }
+  
+  <tr>
+    @if (!rowObjects || rowObjects.length === 0) {
+      <span class="custom-table__no-items-found" >No items found.</span>
+    }
+  </tr>
+</table>

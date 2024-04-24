@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem;
+
+  & .logo {
+    max-width: 3.125rem;
+  }
+  
+  & .title {
+    font-size: 30px;
+    color: #314573;
+    font-weight: bold;
+  }
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  justify-content: center; 
+  padding: 2rem;
+  background-color: #F4F6F9;
+}
