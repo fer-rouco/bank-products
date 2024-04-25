@@ -32,8 +32,52 @@
       padding: 1rem;
       border-bottom: #eeeeee 1px solid;
   
-      &.image {
+      & .image {
         max-width: 50px;
+      }
+    }
+
+    &__context-menu {
+      position: relative;
+      /* Estilos básicos para el menú */
+      .menu-icon {
+        width: 4px;
+        height: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      .menu-icon span {
+        width: 100%;
+        height: 4px;
+        background-color: #000000;
+        border-radius: 2px;
+      }
+
+      /* Estilos para el menú contextual */
+      .context-menu {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        right: .3rem;
+      }
+
+      .context-menu-item {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      /* Mostrar el menú contextual cuando se hace clic en el icono */
+      .menu-icon:focus + .context-menu {
+        display: block;
       }
     }
   

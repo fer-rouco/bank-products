@@ -1,9 +1,15 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Option } from '../fields/select-field/select-field.component';
 
 export interface ColumnDefinition {
   attr: string;
   label: string;
+}
+
+export interface TableAction {
+  id: string;
+  label: string;
+  fn(rowObject: any): void;
 }
 
 @Component({
@@ -16,6 +22,7 @@ export class TableComponent implements OnChanges {
   @Input() public columnDefinitions: ColumnDefinition[] = [];
   @Input() public rowObjects: Array<any> = []; // eslint-disable-line
   @Input() public rowObjectsToShow: Array<any> = []; // eslint-disable-line
+  @Input() public actions: Array<TableAction> = [];
 
   public options: Array<Option> = [
     { label: '5' , value: '5' },
@@ -50,6 +57,10 @@ export class TableComponent implements OnChanges {
 
   public parseDate(date: string): string {
     return new Date(date).toLocaleDateString();
+  }
+
+  public actionClick(action: TableAction, rowObject: any): void {
+    action.fn(rowObject);
   }
 }
 

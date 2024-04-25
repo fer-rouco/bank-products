@@ -7,12 +7,10 @@ export const routes: Routes = [
   {
     path: 'product-list',
     loadComponent: () => import('./product/pages/product-list/product-list.component').then((m) => m.ProductListComponent),
-    // component: ProductListComponent
   },
   {
     path: 'product-edit',
     loadComponent: () => import('./product/pages/product-edit/product-edit.component').then((m) => m.ProductEditComponent)
-    // component: ProductEditComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];

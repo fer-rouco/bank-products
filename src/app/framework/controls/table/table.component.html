@@ -12,23 +12,41 @@
       <tr>
         @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
           @if (isURL(rowObject[columnDefinition.attr])) {
-            <img class="table__cell image" src={{rowObject[columnDefinition.attr]}}>
+            <td class="table__cell"><img class="image" src={{rowObject[columnDefinition.attr]}}></td>
           }
           @else if (isDate(rowObject[columnDefinition.attr])) {
             <td class="table__cell">{{parseDate(rowObject[columnDefinition.attr])}}</td>
           }
           @else {
-            <td class="table__cell">{{rowObject[columnDefinition.attr]}}</td>
+            <td class="table__cell">{{rowObject[columnDefinition.attr]}}</td> 
           }
+        }
+
+        @if (actions && actions.length > 0) {
+          <td class="table__cell table__context-menu" >
+            <!-- Icono de menú -->
+            <div tabindex="0" class="menu-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+  
+            <!-- Menú contextual -->
+            <div class="context-menu">
+              @for (action of actions; track action.id) {
+                <div class="context-menu-item" (mousedown)="actionClick(action, rowObject)" >{{action.label}}</div>
+              }
+            </div>
+          </td>
         }
       </tr>
     }
-    
-    <tr>
-      @if (!rowObjectsToShow || rowObjectsToShow.length === 0) {
+
+    @if (!rowObjectsToShow || rowObjectsToShow.length === 0) {
+      <tr>
         <span class="table__no-items-found" >No items found.</span>
-      }
-    </tr>
+      </tr>
+    }
   </table>
   <div class="footer">
     <span>{{rowObjectsToShow.length}} Resultados</span>

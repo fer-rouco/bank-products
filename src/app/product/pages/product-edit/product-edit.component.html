@@ -1,7 +1,7 @@
 <panel title="Formulario de Registro">
   <div class="row">
     <div class="col">
-      <text-field [model]="model" attr="id" label="ID" [validations]="validations?.get('id')" [errorMessage]="errorMessage"></text-field>
+      <text-field [model]="model" attr="id" label="ID" [validations]="validations?.get('id')" [errorMessage]="errorMessage" [enabled]="!isEditMode()"></text-field>
     </div>
     <div class="col">
       <text-field [model]="model" attr="name" label="Nombre" placeholder="Tarjeta Crédito" [validations]="validations?.get('name')" ></text-field>

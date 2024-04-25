@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { FrameworkModule } from '../../../framework/framework.module';
-import { ColumnDefinition } from '../../../framework/controls/table/table.component';
+import { ColumnDefinition, TableAction } from '../../../framework/controls/table/table.component';
 
 import { Subject, debounceTime } from 'rxjs';
 
@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit {
   public products: Array<Product> = [];
   public productsToShow: Array<Product> = [];
   public columnDefinition: Array<ColumnDefinition> = [];
+  public tableActions: Array<TableAction> = [];
 
   public searchModel: WritableSignal<SearchModel | undefined> = signal(undefined);
 
@@ -36,6 +37,16 @@ export class ProductListComponent implements OnInit {
       { attr: 'description', label: 'Descripción' },
       { attr: 'date_release', label: 'Fecha de liberación' },
       { attr: 'date_revision', label: 'Fecha de reestructuracion' }
+    ];
+
+    this.tableActions = [
+      { id: 'update', label: "Editar", fn: (product: Product) => { 
+        this.productService.setProduct(product);
+        this.router.navigateByUrl('/product-edit'); 
+      }},
+      { id: 'delete', label: "Borrar", fn: () => {
+        console.log("DELETE!!!");
+      }}
     ];
 
     this.productService.getAll('123').subscribe((products: Array<Product>) => {
@@ -57,6 +68,7 @@ export class ProductListComponent implements OnInit {
   }
 
   navigateToAddPage(): void {
+    this.productService.setProduct(undefined);
     this.router.navigateByUrl('/product-edit');
   }
 

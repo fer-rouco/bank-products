@@ -3,5 +3,5 @@
   <custom-button label="Agregar" (click)="navigateToAddPage()"></custom-button>
 </div>
 <div>
-  <custom-table [rowObjects]="productsToShow" [columnDefinitions]="columnDefinition" ></custom-table>
+  <custom-table [rowObjects]="productsToShow" [columnDefinitions]="columnDefinition" [actions]="tableActions" ></custom-table>
 </div>

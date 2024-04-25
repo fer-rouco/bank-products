@@ -10,13 +10,23 @@ export class DateUtils {
   }
 
   static format(dateString: string): string {
-    let date = DateUtils.parseDate(dateString);
+    let date: Date = DateUtils.parseDate(dateString);
     let year = date.toLocaleString("default", { year: "numeric" });
     let month = date.toLocaleString("default", { month: "2-digit" });
     let day = date.toLocaleString("default", { day: "2-digit" });
 
-    return year + "-" + month + "-" + day;
+    return `${year}-${month}-${day}`;
   }
+  
+  static formatFromDateTime(dateString: string): string {
+    let date: Date = new Date(dateString);
+    let year = date.toLocaleString("default", { year: "numeric" });
+    let month = date.toLocaleString("default", { month: "2-digit" });
+    let day = date.toLocaleString("default", { day: "2-digit" });
+
+    return `${day}/${month}/${year}`;
+  }
+  
 
   static isDateGreaterOrEqualThanToday(dateString: string) {
     const parsedDate: Date = DateUtils.parseDate(dateString);

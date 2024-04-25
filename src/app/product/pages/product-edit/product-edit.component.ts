@@ -22,16 +22,14 @@ export class ProductEditComponent implements OnInit {
   public formValid: boolean = true;
   public validations: Map<string, Array<Validation>> | undefined = undefined;
   public errorMessage: string | undefined = undefined;
-  // public invalidId: string = '';
+  public mode: Mode = Mode.CREATE;
 
   constructor(
     @Inject(Router) protected router: Router,
     @Inject(ProductService) private productService: ProductService
   ) {
     effect(() => {
-      // if ((this.errorMessage && this.invalidId !== this.model()?.id) || !this.errorMessage) {
-        this.validateId();
-      // }
+      this.validateId();
       this.updateFormValidFlag();
     });
   }
@@ -57,6 +55,28 @@ export class ProductEditComponent implements OnInit {
         [{ name: 'required' }, { name: 'custom', fn: this.validateDateRevision, model: this.model, message: 'La fecha debe ser exactamente un año posterior a la fecha de liberacion!' }]
       ]
     ]);
+
+    let product: Product | undefined = this.productService.getProduct();
+    if (product) {
+      this.cleanValidations();
+      this.model.set(this.mapToProduct(this.productService.getProduct() || <Product>{}));
+      this.mode = Mode.EDIT;
+    }
+  }
+
+  isEditMode(): boolean {
+    return this.mode === Mode.EDIT;
+  }
+
+  mapToProduct(request: Product): Product {
+    let product: Product = <Product>{};
+    product.id = request.id;
+    product.name = request.name;
+    product.description = request.description;
+    product.logo = request.logo;
+    product.date_release = DateUtils.formatFromDateTime(request.date_release);
+    product.date_revision = DateUtils.formatFromDateTime(request.date_revision);
+    return product;
   }
 
   create(): void {
@@ -65,28 +85,44 @@ export class ProductEditComponent implements OnInit {
       let productCopy: Product = {...product};
       productCopy.date_release = DateUtils.format(product.date_release);
       productCopy.date_revision = DateUtils.format(product.date_revision);
-      this.productService.create('123', productCopy).subscribe(console.log);
+
+      if (this.isEditMode()) {
+        this.productService.update('123', productCopy).subscribe(() => {
+          this.router.navigateByUrl('/product-list');
+        });
+      }
+      else {
+        this.productService.create('123', productCopy).subscribe(() => {
+          this.router.navigateByUrl('/product-list');
+        });
+      }
     }
   }
 
   clearModel(): void {
-    this.model.set(<Product> {});
+    let id: string = this.model()?.id || '';
+    if (this.isEditMode()) {
+      this.model.set(<Product> { id: id });
+    }
+    else {
+      this.model.set(<Product> {});
+    }
   }
 
-  validateId(): boolean {
-    this.errorMessage = undefined;
-    let product: Product | undefined = this.model();
-    if (product && product.id) {
-      this.productService.verify('123', product).pipe(
-        tap((idInvalido: boolean) => {
-          if (idInvalido) {
-            this.errorMessage = 'ID no válido!';
-            // this.invalidId = product?.id || '';
-          }
-        })
-      ).subscribe();
+  validateId(): void {
+    if (!this.isEditMode()) {
+      this.errorMessage = undefined;
+      let product: Product | undefined = this.model();
+      if (product && product.id) {
+        this.productService.verify('123', product).pipe(
+          tap((idInvalido: boolean) => {
+            if (idInvalido) {
+              this.errorMessage = 'ID no válido!';
+            }
+          })
+        ).subscribe();
+      }
     }
-    return false;
   }
 
   validateDateRelease(): boolean {
@@ -95,6 +131,14 @@ export class ProductEditComponent implements OnInit {
 
   validateDateRevision(): boolean {
     return DateUtils.isDateExactlyAYearLaterThanOtherDate(this.model()?.date_release || '', this.model()?.date_revision || '');
+  }
+
+  cleanValidations(): void {
+    if (this.validations) {
+      for (const validationArray of this.validations) {
+        validationArray[1].forEach((validation: Validation) => {validation.valid = true});
+      }
+    }
   }
 
   updateFormValidFlag(): void {
@@ -112,4 +156,9 @@ export class ProductEditComponent implements OnInit {
 
     this.formValid = valid;
   }
+}
+
+enum Mode {
+  CREATE = 0,
+  EDIT = 1
 }
