@@ -26,7 +26,7 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public validations: Array<Validation> | undefined = new Array<Validation>();
 
   public visualModel: string = '';
-  public errorMessage: string | undefined = undefined;
+  @Input() public errorMessage: string | undefined = undefined;
 
   constructor() {
     effect(() => {
@@ -47,7 +47,9 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   public updateModel(): void {
     if (typeof this.model === 'function') {
       if(this.model()) {
-        this.model()[this.attr] = this.visualModel;
+        let modelCopy: any = {...this.model()};
+        modelCopy[this.attr] = this.visualModel;
+        this.model.set(modelCopy);
       }
     }
     else {
@@ -80,26 +82,34 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
     this.errorMessage = undefined;
 
     this.validations?.forEach((validation: Validation) => {
-      switch (validation.name) {
-        case 'required':
-          if (!this.getModel()) {
-            this.errorMessage = 'Este campo es requerido!';
-          }
-          break;
-  
-        case 'min':
-          const valueMin: number = (validation.value) ? parseInt(validation.value) : 0;
-          if (this.getModel() && this.getModel().length < valueMin) {
-            this.errorMessage = `Este campo requiere minimo ${validation.value} caracteres!`;
-          }
-          break;
-  
-        case 'max':
-          const valueMax: number = (validation.value) ? parseInt(validation.value) : 0;
-          if (this.getModel() && this.getModel().length > valueMax) {
-            this.errorMessage = `Este campo requiere maximo ${validation.value} caracteres!`;
-          }
-          break;
+      if(!this.errorMessage) {
+        switch (validation.name) {
+          case 'required':
+            if (!this.getModel()) {
+              this.errorMessage = 'Este campo es requerido!';
+            }
+            break;
+    
+          case 'min':
+            const valueMin: number = (validation.value) ? parseInt(validation.value) : 0;
+            if (this.getModel() && this.getModel().length < valueMin) {
+              this.errorMessage = `Este campo requiere minimo ${validation.value} caracteres!`;
+            }
+            break;
+    
+          case 'max':
+            const valueMax: number = (validation.value) ? parseInt(validation.value) : 0;
+            if (this.getModel() && this.getModel().length > valueMax) {
+              this.errorMessage = `Este campo requiere maximo ${validation.value} caracteres!`;
+            }
+            break;
+          
+          default:
+            if (validation.fn && !validation.fn()) {
+              this.errorMessage = validation.message;
+            }
+            break;
+        }
       }
     });
   }

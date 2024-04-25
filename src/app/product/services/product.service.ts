@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
 
@@ -34,7 +34,7 @@ export class ProductService {
     return this.httpClient.delete<Product>(`${this.BASE_URL}/bp/products?id=${product.id}`, this.buildHeader(authorId));
   }
 
-  public verify(authorId: string, product: Product): Observable<Product> {
-    return this.httpClient.get<Product>(`${this.BASE_URL}/bp/products/verification?id=${product.id}`, this.buildHeader(authorId));
+  public verify(authorId: string, product: Product): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.BASE_URL}/bp/products/verification?id=${product.id}`, this.buildHeader(authorId));
   }
 }
