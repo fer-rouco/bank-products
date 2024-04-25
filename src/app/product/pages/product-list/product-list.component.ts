@@ -38,7 +38,7 @@ export class ProductListComponent implements OnInit {
       { attr: 'date_revision', label: 'Fecha de reestructuracion' }
     ];
 
-    this.productService.getAll('1').subscribe((products: Array<Product>) => {
+    this.productService.getAll('123').subscribe((products: Array<Product>) => {
       this.products = products;
       this.productsToShow = this.products;
     });

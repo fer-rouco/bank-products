@@ -10,9 +10,31 @@ import { Product } from '../models/product';
 })
 export class ProductService {
 
+  private BASE_URL: string = "https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros";
+
   constructor(@Inject(HttpClient) private httpClient: HttpClient) { }
 
+  private buildHeader(authorId: string) {
+    return { headers: { authorId } }
+  }
+
   public getAll(authorId: string): Observable<Array<Product>> {
-    return this.httpClient.get<Array<Product>>("https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products", { headers: { authorId } });
+    return this.httpClient.get<Array<Product>>(`${this.BASE_URL}/bp/products`, this.buildHeader(authorId));
+  }
+
+  public create(authorId: string, product: Product): Observable<Product> {
+    return this.httpClient.post<Product>(`${this.BASE_URL}/bp/products`, product, this.buildHeader(authorId));
+  }
+
+  public update(authorId: string, product: Product): Observable<Product> {
+    return this.httpClient.put<Product>(`${this.BASE_URL}/bp/products`, product, this.buildHeader(authorId));
+  }
+
+  public delete(authorId: string, product: Product): Observable<Product> {
+    return this.httpClient.delete<Product>(`${this.BASE_URL}/bp/products?id=${product.id}`, this.buildHeader(authorId));
+  }
+
+  public verify(authorId: string, product: Product): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.BASE_URL}/bp/products/verification?id=${product.id}`, this.buildHeader(authorId));
   }
 }

@@ -6,7 +6,8 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
-  EventEmitter
+  EventEmitter,
+  effect
 } from '@angular/core';
 
 @Component({
@@ -22,6 +23,12 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() public onChange: EventEmitter<string> = new EventEmitter();
 
   public visualModel: string = '';
+
+  constructor() {
+    effect(() => {
+      this.updateVisualModel();
+    });
+  }
 
   public updateModel(): void {
     if (typeof this.model === 'function') {
