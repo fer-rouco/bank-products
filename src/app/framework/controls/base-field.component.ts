@@ -111,6 +111,7 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
             break;
         }
       }
+      validation.valid = !this.errorMessage;
     });
   }
 

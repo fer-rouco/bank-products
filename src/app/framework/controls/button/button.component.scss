@@ -2,7 +2,9 @@
 
 .custom-button {
   padding: calc(var(--control-padding) * 2);
-  background-color: #F5DF66; 
+  &.primary {
+    background-color: #F5DF66; 
+  }
   border: none;
   border-radius: calc(var(--control-border-radius) / 2);
   cursor: pointer;

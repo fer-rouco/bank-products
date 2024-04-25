@@ -26,8 +26,8 @@
 
   <div class="row">
     <div class="col buttons-layout">
-      <custom-button label="Reiniciar" (click)="clearModel()"></custom-button>
-      <custom-button label="Enviar" (click)="create()" [enabled]="formValid"></custom-button>
+      <custom-button label="Reiniciar" (click)="clearModel()" [primary]="false"></custom-button>
+      <custom-button label="Enviar" (click)="create()" [enabled]="formValid && !errorMessage"></custom-button>
     </div>
   </div>
 </panel>

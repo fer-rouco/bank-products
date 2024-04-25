@@ -3,5 +3,6 @@ export interface Validation {
   value?: string,
   message?: string,
   model?: any,
-  fn?(): boolean
+  fn?(): boolean,
+  valid?: boolean
 }

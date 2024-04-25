@@ -22,13 +22,17 @@ export class ProductEditComponent implements OnInit {
   public formValid: boolean = true;
   public validations: Map<string, Array<Validation>> | undefined = undefined;
   public errorMessage: string | undefined = undefined;
+  // public invalidId: string = '';
 
   constructor(
     @Inject(Router) protected router: Router,
     @Inject(ProductService) private productService: ProductService
   ) {
     effect(() => {
-      this.validateId();
+      // if ((this.errorMessage && this.invalidId !== this.model()?.id) || !this.errorMessage) {
+        this.validateId();
+      // }
+      this.updateFormValidFlag();
     });
   }
 
@@ -77,6 +81,7 @@ export class ProductEditComponent implements OnInit {
         tap((idInvalido: boolean) => {
           if (idInvalido) {
             this.errorMessage = 'ID no válido!';
+            // this.invalidId = product?.id || '';
           }
         })
       ).subscribe();
@@ -90,5 +95,21 @@ export class ProductEditComponent implements OnInit {
 
   validateDateRevision(): boolean {
     return DateUtils.isDateExactlyAYearLaterThanOtherDate(this.model()?.date_release || '', this.model()?.date_revision || '');
+  }
+
+  updateFormValidFlag(): void {
+    let valid: boolean = true;
+
+    if (this.validations) {
+      for (const validationArray of this.validations) {
+        const notValid = validationArray[1].find((validation: Validation) => !validation.valid);
+        if (notValid) {
+          valid = false;
+          break;
+        }
+      }
+    }
+
+    this.formValid = valid;
   }
 }
