@@ -1,26 +1,26 @@
 <panel title="Formulario de Registro">
   <div class="row">
     <div class="col">
-      <text-field [model]="model" attr="id" label="ID"></text-field>
+      <text-field [model]="model" attr="id" label="ID" [validations]="validations?.get('id')" ></text-field>
     </div>
     <div class="col">
-      <text-field [model]="model" attr="name" label="Nombre" placeholder="Tarjeta Crédito" ></text-field>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <text-field [model]="model" attr="description" label="Descripción"></text-field>
-    </div>
-    <div class="col">
-      <text-field [model]="model" attr="logo" label="Logo"></text-field>
+      <text-field [model]="model" attr="name" label="Nombre" placeholder="Tarjeta Crédito" [validations]="validations?.get('name')" ></text-field>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <text-field [model]="model" attr="date_release" label="Fecha Liberación"></text-field>
+      <text-field [model]="model" attr="description" label="Descripción" [validations]="validations?.get('description')" ></text-field>
     </div>
     <div class="col">
-      <text-field [model]="model" attr="date_revision" label="Fecha Revisión"></text-field>
+      <text-field [model]="model" attr="logo" label="Logo" [validations]="validations?.get('logo')" ></text-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <text-field [model]="model" attr="date_release" label="Fecha Liberación" placeholder="22/02/2023" [validations]="validations?.get('date_release')" ></text-field>
+    </div>
+    <div class="col">
+      <text-field [model]="model" attr="date_revision" label="Fecha Revisión" placeholder="22/02/2024" [enabled]="false" [validations]="validations?.get('date_revision')" ></text-field>
     </div>
   </div>
 

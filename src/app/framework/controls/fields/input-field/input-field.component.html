@@ -1,4 +1,4 @@
-<field for="input_{{type}}_{{attr}}" label="{{label}}">
+<field for="input_{{type}}_{{attr}}" label="{{label}}" [validations]="validations">
   <input
     id="input_{{type}}_{{attr}}"
     type="{{type}}"
@@ -6,6 +6,7 @@
     (ngModelChange)="onFieldChange($event)"
     autocomplete="off"
     class="form-control input-field"
+    [ngClass]="{ 'error': errorMessage, 'no-error': !errorMessage }"
     [placeholder]="placeholder"
     [title]="label"
     name="input_{{type}}_{{attr}}"
@@ -15,3 +16,4 @@
     title="{{attr}}"
   />
 </field>
+<span class="error" >{{errorMessage}}</span>

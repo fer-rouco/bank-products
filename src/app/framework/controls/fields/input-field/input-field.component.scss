@@ -1,14 +1,28 @@
 @import '../../../../variables';
 
 .input-field {
-  
   padding: var(--control-padding);
 
   border: var(--control-border);
   border-radius: var(--control-border-radius);
 
-  &:focus {
+  &.error {
+    border-color: rgb(255, 0, 0);
+    color: #000000;
+  }
+
+
+  &.no-error:focus {
     border: var(--control-border-focus);
   }
 
+  &.error:focus {
+    border: var(--control-border-focus);
+    border-color: rgb(255, 0, 0);
+  }
+}
+
+.error {
+  color: rgb(255, 0, 0);
+  font-size: .8rem;
 }

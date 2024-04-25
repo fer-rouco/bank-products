@@ -10,6 +10,7 @@ import {
   effect
 } from '@angular/core';
 
+import { Validation } from './validations-interface';
 @Component({
   selector: 'base-field',
   template: '',
@@ -22,12 +23,25 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public placeholder: string = '';
   @Output() public onChange: EventEmitter<string> = new EventEmitter();
 
+  @Input() public validations: Array<Validation> | undefined = new Array<Validation>();
+
   public visualModel: string = '';
+  public errorMessage: string | undefined = undefined;
 
   constructor() {
     effect(() => {
       this.updateVisualModel();
     });
+  }
+
+  public getModel(): any {
+    if (typeof this.model === 'function') {
+      if(this.model()) {
+        return this.model()[this.attr];
+      }
+    }
+
+    return this.model[this.attr];
   }
 
   public updateModel(): void {
@@ -39,6 +53,8 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
     else {
       this.model[this.attr] = this.visualModel;
     }
+
+    this.validate();
   }
 
   public updateVisualModel(): void {
@@ -58,6 +74,34 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
 
   public onInputChange(): void {
     this.updateModel();
+  }
+
+  public validate(): void {
+    this.errorMessage = undefined;
+
+    this.validations?.forEach((validation: Validation) => {
+      switch (validation.name) {
+        case 'required':
+          if (!this.getModel()) {
+            this.errorMessage = 'Este campo es requerido!';
+          }
+          break;
+  
+        case 'min':
+          const valueMin: number = (validation.value) ? parseInt(validation.value) : 0;
+          if (this.getModel() && this.getModel().length < valueMin) {
+            this.errorMessage = `Este campo requiere minimo ${validation.value} caracteres!`;
+          }
+          break;
+  
+        case 'max':
+          const valueMax: number = (validation.value) ? parseInt(validation.value) : 0;
+          if (this.getModel() && this.getModel().length > valueMax) {
+            this.errorMessage = `Este campo requiere maximo ${validation.value} caracteres!`;
+          }
+          break;
+      }
+    });
   }
 
   ngOnInit(): void {}
