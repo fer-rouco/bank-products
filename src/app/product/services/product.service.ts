@@ -12,11 +12,7 @@ export class ProductService {
 
   constructor(@Inject(HttpClient) private httpClient: HttpClient) { }
 
-  public getAll(): Observable<Array<Product>> {
-    
-    // const headers: HttpHeaders = {
-    //   headers: new Headers()
-    // };
-    return this.httpClient.get<Array<Product>>("https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products", { headers: { authorId: '1' } })
+  public getAll(authorId: string): Observable<Array<Product>> {
+    return this.httpClient.get<Array<Product>>("https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products", { headers: { authorId } });
   }
 }

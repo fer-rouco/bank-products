@@ -1,12 +1,11 @@
 @import '../../../variables';
 
 .panel-border {
-  border: 1px solid #999999;
   border-radius: var(--border-radius);
 }
 
 .panel-background-color {
-  background-color: #eeeeee;
+  background-color: #ffffff;
 }
 
 .panel-margin {
@@ -19,16 +18,15 @@
   @extend .panel-margin;
 
   &__title {
-    @extend .panel-border;
-    border: none;
-    color: rgb(8, 82, 1);
+    border-bottom: #EEEEEE .5px solid;
+    color: #000000;
     background-color: #ffffff; // #def5fd
     margin: 1rem;
     padding: .5rem;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     
     & .actions {
       display: flex;

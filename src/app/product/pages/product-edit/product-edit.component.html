@@ -1,1 +1,33 @@
-<p>product-edit works!</p>
+<panel title="Formulario de Registro">
+  <div class="row">
+    <div class="col">
+      <text-field [model]="model" attr="id" label="ID"></text-field>
+    </div>
+    <div class="col">
+      <text-field [model]="model" attr="name" label="Nombre" placeholder="Tarjeta Crédito" ></text-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <text-field [model]="model" attr="description" label="Descripción"></text-field>
+    </div>
+    <div class="col">
+      <text-field [model]="model" attr="logo" label="Logo"></text-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <text-field [model]="model" attr="date_release" label="Fecha Liberación"></text-field>
+    </div>
+    <div class="col">
+      <text-field [model]="model" attr="date_revision" label="Fecha Revisión"></text-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col buttons-layout">
+      <custom-button label="Reiniciar"></custom-button>
+      <custom-button label="Enviar" [enabled]="false"></custom-button>
+    </div>
+  </div>
+</panel>

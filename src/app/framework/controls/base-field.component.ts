@@ -24,12 +24,24 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   public visualModel: string = '';
 
   public updateModel(): void {
-    this.model[this.attr] = this.visualModel;
+    if (typeof this.model === 'function') {
+      if(this.model()) {
+        this.model()[this.attr] = this.visualModel;
+      }
+    }
+    else {
+      this.model[this.attr] = this.visualModel;
+    }
   }
 
   public updateVisualModel(): void {
     if (this.model) {
-      this.visualModel = this.model[this.attr];
+      if (typeof this.model === 'function') {
+        this.visualModel = (this.model()) ? this.model()[this.attr] : "";
+      }
+      else {
+        this.visualModel = this.model[this.attr];
+      }
     }
   }
 

@@ -4,6 +4,7 @@
   padding: calc(var(--control-padding) * 2);
   background-color: #F5DF66; 
   border: none;
+  border-radius: calc(var(--control-border-radius) / 2);
   cursor: pointer;
   font-weight: bold;
 
@@ -17,5 +18,13 @@
 
   &:disabled {
     opacity: 50%;
+  }
+
+  &:hover:disabled {
+    background-color: #F5DF66;
+    cursor: auto;
+    .label {
+      cursor: auto;
+    }
   }
 }
