@@ -11,16 +11,20 @@ export class ProductServiceMock {
 
   constructor() { }
 
-  private mockProductList(): Array<Product> {
-    return [
-      <Product>{
+  private mockProduct(): Product {
+    return <Product>{
         id: 'VisaPlatinum',
         name: 'Visa Platinum',
         description: 'Visa Platinum Product',
         logo: 'https://www.copaair.com/assets/Produbanco-Platinum.png',
         date_release: '25/05/2030',
         date_revision: '25/05/2031'
-      },
+      };
+  }
+
+  private mockProductList(): Array<Product> {
+    return [
+      this.mockProduct(),
       <Product>{
         id: 'VisaSignature',
         name: 'Visa Signature',
@@ -68,21 +72,21 @@ export class ProductServiceMock {
     return of(this.mockProductList());
   }
 
-  // public create(authorId: string, product: Product): Observable<Product> {
-  //   return this.httpClient.post<Product>(`${this.BASE_URL}/bp/products`, product, this.buildHeader(authorId));
-  // }
+  public create(authorId: string, product: Product): Observable<Product> {
+    return of(this.mockProduct());
+  }
 
-  // public update(authorId: string, product: Product): Observable<Product> {
-  //   return this.httpClient.put<Product>(`${this.BASE_URL}/bp/products`, product, this.buildHeader(authorId));
-  // }
+  public update(authorId: string, product: Product): Observable<Product> {
+    return of(this.mockProduct());
+  }
 
-  // public delete(authorId: string, product: Product): Observable<string> {
-  //   return this.httpClient.delete<string>(`${this.BASE_URL}/bp/products?id=${product.id}`, this.buildHeader(authorId));
-  // }
+  public delete(authorId: string, product: Product): Observable<string> {
+    return of('Success');
+  }
 
-  // public verify(authorId: string, product: Product): Observable<boolean> {
-  //   return this.httpClient.get<boolean>(`${this.BASE_URL}/bp/products/verification?id=${product.id}`, this.buildHeader(authorId));
-  // }
+  public verify(authorId: string, product: Product): Observable<boolean> {
+    return of(true);
+  }
 
   public setProduct(product: Product | undefined): void {
     this.product = product;

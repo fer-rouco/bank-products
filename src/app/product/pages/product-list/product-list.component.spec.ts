@@ -1,7 +1,7 @@
 
 import { DebugElement } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FrameworkModule } from '../../../framework/framework.module';
 import { TableComponent } from '../../../framework/controls/table/table.component';
@@ -14,7 +14,7 @@ import { ProductService } from '../../services/product.service';
 import { ProductServiceMock } from '../../../../test/mocks/product.service.mock';
 import { routes } from '../../../app.routes';
 
-fdescribe('ProductListComponent', () => {
+describe('ProductListComponent', () => {
   let component: ProductListComponent;
   let fixture: ComponentFixture<ProductListComponent>;
   let textFieldComponent: TextFieldComponent;
@@ -107,21 +107,58 @@ fdescribe('ProductListComponent', () => {
     expect(titleText).toBe('Estas seguro de eliminar el producto Visa Platinum?');
   });
 
-  // it('should filter items on search field typing', fakeAsync(() => {
-  //   // fixture.debugElement.query(By.css('#input_text_search')).nativeElement.value = 'Visa';
-  //   // textFieldComponent.attr = 'search';
-  //   // textFieldComponent.model = {search: 'Visa'};
-  //   // textFieldComponent.model.set({search: 'Visa'});
-  //   component.searchModel.set({search: 'Visa'});
-  //   tick(500); // debounce
-  //   textFieldFixture.detectChanges();
+  it('should delete an item when delete context menu item is clicked and accept button in the modal is clicked', () => {
+    const tableComponent: DebugElement = fixture.debugElement.query(By.directive(TableComponent));
+    
+    const contextMenu: DebugElement = tableComponent.queryAll(By.css('.table__context-menu .context-menu'))[0];
+    contextMenu.nativeElement.style.display = 'block';
+    fixture.detectChanges();
+    contextMenu.nativeElement.children[1].dispatchEvent(new Event('mousedown'));
+    fixture.detectChanges();
+    
+    let deleteModal: DebugElement = fixture.debugElement.query(By.css('.modal'));
+    const acceptButton: DebugElement = deleteModal.query(By.css(".custom-button.primary"))
+    acceptButton.nativeElement.click();
+    fixture.detectChanges();
 
-  //   const tableComponent: DebugElement = fixture.debugElement.query(By.directive(TableComponent));
-  //   expect(tableComponent.componentInstance.rowObjects.length).toBe(3);
+    deleteModal = fixture.debugElement.query(By.css('.modal'));
+    expect(deleteModal).toBeFalsy();
+  });
 
-  //   const quantityText = tableComponent.query(By.css('.footer .quantity')).nativeElement.textContent;
-  //   expect(quantityText).toBe('3 Resultados');
-  // }));
+  it('should hide delete modal when cancel button is clicked', () => {
+    const tableComponent: DebugElement = fixture.debugElement.query(By.directive(TableComponent));
+    
+    const contextMenu: DebugElement = tableComponent.queryAll(By.css('.table__context-menu .context-menu'))[0];
+    contextMenu.nativeElement.style.display = 'block';
+    fixture.detectChanges();
+    contextMenu.nativeElement.children[1].dispatchEvent(new Event('mousedown'));
+    fixture.detectChanges();
+    
+    let deleteModal: DebugElement = fixture.debugElement.query(By.css('.modal'));
+    const acceptButton: DebugElement = deleteModal.query(By.css(".custom-button.secondary"))
+    acceptButton.nativeElement.click();
+    fixture.detectChanges();
+
+    deleteModal = fixture.debugElement.query(By.css('.modal'));
+    expect(deleteModal).toBeFalsy();
+  });
+
+  xit('should filter items on search field typing', fakeAsync(() => {
+    // fixture.debugElement.query(By.css('#input_text_search')).nativeElement.value = 'Visa';
+    // textFieldComponent.attr = 'search';
+    // textFieldComponent.model = {search: 'Visa'};
+    // textFieldComponent.model.set({search: 'Visa'});
+    component.searchModel.set({search: 'Visa'});
+    tick(500); // debounce
+    textFieldFixture.detectChanges();
+
+    const tableComponent: DebugElement = fixture.debugElement.query(By.directive(TableComponent));
+    expect(tableComponent.componentInstance.rowObjects.length).toBe(3);
+
+    const quantityText = tableComponent.query(By.css('.footer .quantity')).nativeElement.textContent;
+    expect(quantityText).toBe('3 Resultados');
+    flush();
+  }));
   
   it('should items quantity change on quantity select change', fakeAsync(() => {
     const tableComponent: DebugElement = fixture.debugElement.query(By.directive(TableComponent));  
@@ -138,6 +175,7 @@ fdescribe('ProductListComponent', () => {
 
     const tableRows: Array<DebugElement> = tableComponent.queryAll(By.css('.table tr.body'));
     expect(tableRows.length).toBe(6);
-
+    
+    flush();
   }));
 });
