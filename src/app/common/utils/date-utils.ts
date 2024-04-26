@@ -36,10 +36,21 @@ export class DateUtils {
     return parsedDate >= todayZeroHour;
   }
   
-  static isDateExactlyAYearLaterThanOtherDate(dateOneString: string, dateTwoString: string) {
-    const parsedDateOne: Date = DateUtils.parseDate(dateOneString); 
-    const parsedDateTwo: Date = DateUtils.parseDate(dateTwoString);;
+  static isDateExactlyAYearLaterThanOtherDate(dateInitialParam: string, dateToCompareParam: string) {
+    const dateInitial: Date = DateUtils.parseDate(dateInitialParam);
+    const dateToCompare: Date = DateUtils.parseDate(dateToCompareParam);
+
+    const yearInitial = dateInitial.getFullYear();
+    const yearToCompare = dateToCompare.getFullYear();
   
-    return (parsedDateTwo.getTime() - parsedDateOne.getTime()) === 31536000000;
+    const monthInitial = dateInitial.getMonth();
+    const monthToCompare = dateToCompare.getMonth();
+    const dayInitial = dateInitial.getDate();
+    const dayToCompare = dateToCompare.getDate();
+  
+    const yearComparison: boolean = yearToCompare === yearInitial + 1;
+    const dayMonthComparison: boolean = (monthToCompare === monthInitial && dayToCompare === dayInitial);   
+  
+    return yearComparison && dayMonthComparison;
   }
 }
