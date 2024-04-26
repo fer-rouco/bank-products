@@ -2,6 +2,15 @@
 
 > App that allows you to list, add, edit and delete a bank's products from an API
 
+## About the Project
+
+<p align="center">
+  <img src="./assets/product-list.png" />
+  <img src="./assets/product-edit.png" />
+</p>
+
+This is a responsive Angular based app to show, create, edit and delete a list of bank products.
+
 ## **Technologies used for this project.**
 
 [<img src='https://img.icons8.com/color/96/000000/html-5--v1.png' alt='HTML' width='50px'/>](https://html.spec.whatwg.org/multipage/)
