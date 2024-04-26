@@ -8,11 +8,13 @@ import { TableComponent } from '../../../framework/controls/table/table.componen
 import { TextFieldComponent } from '../../../framework/controls/fields/text-field/text-field.component';
 import { SelectFieldComponent } from '../../../framework/controls/fields/select-field/select-field.component';
 import { CustomButtonComponent } from '../../../framework/controls/button/button.component';
+import { Product } from '../../models/product';
 
 import { ProductListComponent } from './product-list.component';
 import { ProductService } from '../../services/product.service';
 import { ProductServiceMock } from '../../../../test/mocks/product.service.mock';
 import { routes } from '../../../app.routes';
+import { Observable, of } from 'rxjs';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -108,9 +110,15 @@ describe('ProductListComponent', () => {
   });
 
   it('should delete an item when delete context menu item is clicked and accept button in the modal is clicked', () => {
+    const productIndexToBeDeleted: number = 1;
+    const productsAfterDelete: Array<Product> = ProductServiceMock.mockProductList().filter((product: Product, index: number) => index !== productIndexToBeDeleted);
+    const productsToReturn$: Observable<Array<Product>> = of(productsAfterDelete);
+    const productService = TestBed.inject(ProductService);
+    spyOn(productService, "getAll").and.returnValue(productsToReturn$);
+
     const tableComponent: DebugElement = fixture.debugElement.query(By.directive(TableComponent));
     
-    const contextMenu: DebugElement = tableComponent.queryAll(By.css('.table__context-menu .context-menu'))[0];
+    const contextMenu: DebugElement = tableComponent.queryAll(By.css('.table__context-menu .context-menu'))[productIndexToBeDeleted];
     contextMenu.nativeElement.style.display = 'block';
     fixture.detectChanges();
     contextMenu.nativeElement.children[1].dispatchEvent(new Event('mousedown'));
@@ -123,6 +131,9 @@ describe('ProductListComponent', () => {
 
     deleteModal = fixture.debugElement.query(By.css('.modal'));
     expect(deleteModal).toBeFalsy();
+
+    const tableRows: Array<DebugElement> = tableComponent.queryAll(By.css('.table tr.body'));
+    expect(productsAfterDelete.length).toBe(tableRows.length);
   });
 
   it('should hide delete modal when cancel button is clicked', () => {

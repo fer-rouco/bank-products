@@ -11,7 +11,7 @@ export class ProductServiceMock {
 
   constructor() { }
 
-  private mockProduct(): Product {
+  public static mockProduct(): Product {
     return <Product>{
         id: 'VisaPlatinum',
         name: 'Visa Platinum',
@@ -22,7 +22,7 @@ export class ProductServiceMock {
       };
   }
 
-  private mockProductList(): Array<Product> {
+  public static mockProductList(): Array<Product> {
     return [
       this.mockProduct(),
       <Product>{
@@ -69,15 +69,15 @@ export class ProductServiceMock {
   }
   
   public getAll(authorId: string): Observable<Array<Product>> {
-    return of(this.mockProductList());
+    return of(ProductServiceMock.mockProductList());
   }
 
   public create(authorId: string, product: Product): Observable<Product> {
-    return of(this.mockProduct());
+    return of(ProductServiceMock.mockProduct());
   }
 
   public update(authorId: string, product: Product): Observable<Product> {
-    return of(this.mockProduct());
+    return of(ProductServiceMock.mockProduct());
   }
 
   public delete(authorId: string, product: Product): Observable<string> {
@@ -85,7 +85,7 @@ export class ProductServiceMock {
   }
 
   public verify(authorId: string, product: Product): Observable<boolean> {
-    return of(true);
+    return of(false);
   }
 
   public setProduct(product: Product | undefined): void {

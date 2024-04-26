@@ -27,7 +27,6 @@ export class DateUtils {
     return `${day}/${month}/${year}`;
   }
   
-
   static isDateGreaterOrEqualThanToday(dateString: string) {
     const parsedDate: Date = DateUtils.parseDate(dateString);
   

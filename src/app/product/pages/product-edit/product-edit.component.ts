@@ -56,9 +56,10 @@ export class ProductEditComponent implements OnInit {
       ]
     ]);
 
+    this.cleanValidations();
+    
     let product: Product | undefined = this.productService.getProduct();
     if (product) {
-      this.cleanValidations();
       this.model.set(this.mapToProduct(this.productService.getProduct() || <Product>{}));
       this.mode = Mode.EDIT;
     }
