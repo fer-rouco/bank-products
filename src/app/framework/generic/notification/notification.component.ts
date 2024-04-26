@@ -18,8 +18,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   public notificationSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
-    @Inject(NotificationService)
-    private notificationService: NotificationService,
+    @Inject(NotificationService) private notificationService: NotificationService,
   ) {
     this.notificationObject.set(null);
   }
@@ -35,7 +34,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
           if (!notificationObject) {
             return of(null);
           }
-          return timer(5000);
+          return timer(3000);
         }),
         tap(() => {
           this.notificationObject.set(null);

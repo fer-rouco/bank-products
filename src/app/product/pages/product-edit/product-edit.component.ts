@@ -3,6 +3,7 @@ import { Component, Inject, signal, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { ProductService } from '../../services/product.service';
+import { NotificationService } from '../../../framework/generic/notification.service';
 
 import { Validation } from '../../../framework/controls/validations-interface';
 import { FrameworkModule } from '../../../framework/framework.module';
@@ -26,7 +27,8 @@ export class ProductEditComponent implements OnInit {
 
   constructor(
     @Inject(Router) protected router: Router,
-    @Inject(ProductService) private productService: ProductService
+    @Inject(ProductService) private productService: ProductService,
+    @Inject(NotificationService) private notificationService: NotificationService
   ) {
     effect(() => {
       this.validateId();
@@ -88,13 +90,25 @@ export class ProductEditComponent implements OnInit {
       productCopy.date_revision = DateUtils.format(product.date_revision);
 
       if (this.isEditMode()) {
-        this.productService.update('123', productCopy).subscribe(() => {
-          this.router.navigateByUrl('/product-list');
+        this.productService.update('123', productCopy).subscribe({
+          next: () => {
+            this.notificationService.addSuccess('Producto actualizado exitosamente!');
+            this.router.navigateByUrl('/product-list');
+          },
+          error: (error: Response) => {
+            this.notificationService.addError('Error al intentar actualizar el producto!');
+          }
         });
       }
       else {
-        this.productService.create('123', productCopy).subscribe(() => {
-          this.router.navigateByUrl('/product-list');
+        this.productService.create('123', productCopy).subscribe({
+          next: () => {
+            this.notificationService.addSuccess('Producto creado exitosamente!');
+            this.router.navigateByUrl('/product-list');
+          },
+          error: (error: Response) => {
+            this.notificationService.addError('Error al intentar actualizar el producto!');
+          }
         });
       }
     }
