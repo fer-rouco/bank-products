@@ -10,6 +10,7 @@ import { FrameworkModule } from '../../../framework/framework.module';
 import { DateUtils } from '../../../common/utils/date-utils';
 
 import { Product } from '../../models/product';
+import { AUTHOR_ID } from '../../../config';
 
 @Component({
   selector: 'product-edit',
@@ -90,7 +91,7 @@ export class ProductEditComponent implements OnInit {
       productCopy.date_revision = DateUtils.format(product.date_revision);
 
       if (this.isEditMode()) {
-        this.productService.update('123', productCopy).subscribe({
+        this.productService.update(AUTHOR_ID, productCopy).subscribe({
           next: () => {
             this.notificationService.addSuccess('Producto actualizado exitosamente!');
             this.router.navigateByUrl('/product-list');
@@ -101,7 +102,7 @@ export class ProductEditComponent implements OnInit {
         });
       }
       else {
-        this.productService.create('123', productCopy).subscribe({
+        this.productService.create(AUTHOR_ID, productCopy).subscribe({
           next: () => {
             this.notificationService.addSuccess('Producto creado exitosamente!');
             this.router.navigateByUrl('/product-list');
@@ -129,7 +130,7 @@ export class ProductEditComponent implements OnInit {
       this.errorMessage = undefined;
       let product: Product | undefined = this.model();
       if (product && product.id) {
-        this.productService.verify('123', product).pipe(
+        this.productService.verify(AUTHOR_ID, product).pipe(
           tap((idInvalido: boolean) => {
             if (idInvalido) {
               this.errorMessage = 'ID no válido!';

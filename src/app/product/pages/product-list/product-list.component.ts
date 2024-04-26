@@ -6,9 +6,8 @@ import { Product } from '../../models/product';
 import { FrameworkModule } from '../../../framework/framework.module';
 import { ColumnDefinition, TableAction } from '../../../framework/controls/table/table.component';
 import { NotificationService } from '../../../framework/generic/notification.service';
-
-
 import { Subject, debounceTime } from 'rxjs';
+import { AUTHOR_ID } from '../../../config';
 
 @Component({
   selector: 'product-list',
@@ -64,7 +63,7 @@ export class ProductListComponent implements OnInit {
   }
 
   fetch(): void {
-    this.productService.getAll('123').subscribe((products: Array<Product>) => {
+    this.productService.getAll(AUTHOR_ID).subscribe((products: Array<Product>) => {
       this.products = products;
       this.productsToShow = this.products;
     });
@@ -85,7 +84,7 @@ export class ProductListComponent implements OnInit {
 
   acceptModal(): void {
     if (this.productToDelete) {
-      this.productService.delete('123', this.productToDelete).subscribe({
+      this.productService.delete(AUTHOR_ID, this.productToDelete).subscribe({
         next: () => {
           this.showDeleteModal = false;
           this.notificationService.addSuccess('Producto eliminado exitosamente!');
