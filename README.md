@@ -1,27 +1,32 @@
-# FernandoRouco
+# **Bank Products**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
+> App that allows you to list, add, edit and delete a bank's products from an API
 
-## Development server
+## **Technologies used for this project.**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+[<img src='https://img.icons8.com/color/96/000000/html-5--v1.png' alt='HTML' width='50px'/>](https://html.spec.whatwg.org/multipage/)
+[<img src='https://img.icons8.com/color/96/000000/css3.png' alt='CSS' width='50px'/>](https://www.css3.com/)
+[<img src='https://img.icons8.com/color/96/000000/javascript--v1.png' alt='JS' width='50px'/>](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[<img src='https://img.icons8.com/?size=512&id=nCj4PvnCO0tZ&format=png' alt='JS' width='50px'/>](https://www.typescriptlang.org/)
+[<img src='https://img.icons8.com/?size=512&id=71257&format=png' alt='Angular' width='50px'/>](https://angular.io/)
+[<img src='https://img.icons8.com/color/96/000000/sass.png' alt='SASS' width='50px'/>](https://sass-lang.com/)
 
-## Code scaffolding
+### **How to start project**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Install project dependecies:
 
-## Build
+```
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Start the web server
 
-## Running unit tests
+```
+npm start
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Run tests
 
-## Running end-to-end tests
+```
+npm run test
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
