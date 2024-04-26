@@ -9,7 +9,9 @@
   <img src="./assets/product-edit.png" />
 </p>
 
-This is a responsive Angular based app to show, create, edit and delete a list of bank products.
+This is a responsive and pure Angular based app. Pure means that it was done without the need to install other library than Angular.
+Aditionally I used Angular 17.3.0 with the new Angular features like new sintax, signals, standalone components, etc...
+Karma library was used to do the tests.
 
 ## **Technologies used for this project.**
 
