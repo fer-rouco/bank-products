@@ -13,8 +13,6 @@ describe('ProductEditComponent', () => {
       imports: [ProductEditComponent, FrameworkModule],
       providers: [HttpClient, HttpHandler]
     })
-    await TestBed.configureTestingModule({
-    })
     .compileComponents();
     
     fixture = TestBed.createComponent(ProductEditComponent);

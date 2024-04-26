@@ -14,7 +14,7 @@ export interface Option {
 export class SelectFieldComponent extends BaseFieldComponent {
   @Input() public options: Option[] = [];
 
-  public override updateModel(): void {
-    this.model[this.attr] = Number.parseInt(this.visualModel);
-  }
+  // public override updateModel(): void {
+  //   this.model[this.attr] = Number.parseInt(this.visualModel);
+  // }
 }

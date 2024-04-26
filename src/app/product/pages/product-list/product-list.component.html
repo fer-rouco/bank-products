@@ -1,6 +1,6 @@
 <div class="header">
   <text-field [model]="searchModel" attr="search" (onChange)="onSearchChange($event)" placeholder="Search..."></text-field>
-  <custom-button label="Agregar" (click)="navigateToAddPage()"></custom-button>
+  <custom-button id="create" label="Agregar" (click)="navigateToAddPage()"></custom-button>
 </div>
 <div>
   <custom-table [rowObjects]="productsToShow" [columnDefinitions]="columnDefinition" [actions]="tableActions" ></custom-table>
