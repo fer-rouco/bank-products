@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectFieldComponent } from './select-field.component';
-import { TestRequirementsModule } from 'src/test/test-requirements.module';
+import { TestRequirementsModule } from '../../../../../test/test-requirements.module';
 
 describe('SelectFieldComponent', () => {
   let component: SelectFieldComponent;

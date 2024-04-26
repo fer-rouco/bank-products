@@ -27,19 +27,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    & .actions {
-      display: flex;
-      align-items: flex-end;
-  
-      & ::ng-deep .custom-button {
-        margin: 0 0 0 .5rem;
-
-        .icon {
-          height: 1rem;
-        }
-      }
-    }
   }
 
   &__content {

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Action } from '../../generic/generic-interface';
 
 @Component({
   selector: 'panel',
@@ -8,5 +7,4 @@ import { Action } from '../../generic/generic-interface';
 })
 export class PanelComponent {
   @Input() public title: string = '';
-  @Input() public actions: Action[] = [];
 }

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FrameworkModule } from '../../../framework/framework.module';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 import { ProductEditComponent } from './product-edit.component';
 
@@ -8,7 +10,10 @@ describe('ProductEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductEditComponent]
+      imports: [ProductEditComponent, FrameworkModule],
+      providers: [HttpClient, HttpHandler]
+    })
+    await TestBed.configureTestingModule({
     })
     .compileComponents();
     

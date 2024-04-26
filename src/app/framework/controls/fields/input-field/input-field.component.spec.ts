@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputFieldComponent } from './input-field.component';
-import { TestRequirementsModule } from 'src/test/test-requirements.module';
+import { TestRequirementsModule } from '../../../../../test/test-requirements.module';
 
 describe('InputFieldComponent', () => {
   let component: InputFieldComponent;

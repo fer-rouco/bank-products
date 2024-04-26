@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestRequirementsModule } from '../../../../../test/test-requirements.module';
 import { TextFieldComponent } from './text-field.component';
 
 describe('TextFieldComponent', () => {
@@ -8,7 +8,8 @@ describe('TextFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TextFieldComponent]
+      declarations: [TextFieldComponent],
+      imports: [TestRequirementsModule]
     })
     .compileComponents();
     
