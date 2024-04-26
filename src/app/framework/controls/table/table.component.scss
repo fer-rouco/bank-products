@@ -5,13 +5,18 @@
   background-color: #ffffff;
 
   .table {
-  
+    border-collapse: collapse;
+
     &.flex {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-  
+
+    &__row { 
+      border-bottom: #eeeeee .5px solid;
+    }  
+    
     &__header {
       &:first-of-type {
         border-top-left-radius: var(--border-radius);
@@ -25,12 +30,10 @@
   
       text-align: left;
       padding: 1rem;
-      border-bottom: #eeeeee 1px solid;
     }
   
     &__cell {
       padding: 1rem;
-      border-bottom: #eeeeee 1px solid;
   
       & .image {
         max-width: 50px;
@@ -41,7 +44,7 @@
       position: relative;
       /* Estilos básicos para el menú */
       .menu-icon {
-        width: 4px;
+        width: 14px;
         height: 30px;
         display: flex;
         flex-direction: column;

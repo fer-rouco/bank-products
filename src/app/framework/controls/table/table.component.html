@@ -1,6 +1,6 @@
 <div class="table-container" >
-  <table class="table flex" [ngClass]="{ 'flex': !rowObjectsToShow || rowObjectsToShow.length === 0 }">
-    <tr>
+  <table class="table flex" [ngClass]="{ 'flex': !rowObjectsToShow || rowObjectsToShow.length === 0 }" >
+    <tr class="table__row">
       @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
         <th class="table__header">
           {{columnDefinition.label}}
@@ -9,7 +9,7 @@
     </tr>
   
     @for (rowObject of rowObjectsToShow; track rowObject.id) {
-      <tr>
+      <tr class="table__row">
         @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
           @if (isURL(rowObject[columnDefinition.attr])) {
             <td class="table__cell"><img class="image" src={{rowObject[columnDefinition.attr]}}></td>
@@ -43,7 +43,7 @@
     }
 
     @if (!rowObjectsToShow || rowObjectsToShow.length === 0) {
-      <tr>
+      <tr class="table__row" >
         <span class="table__no-items-found" >No items found.</span>
       </tr>
     }
