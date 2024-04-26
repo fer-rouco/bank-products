@@ -30,8 +30,8 @@ export class ProductService {
     return this.httpClient.put<Product>(`${this.BASE_URL}/bp/products`, product, this.buildHeader(authorId));
   }
 
-  public delete(authorId: string, product: Product): Observable<Product> {
-    return this.httpClient.delete<Product>(`${this.BASE_URL}/bp/products?id=${product.id}`, this.buildHeader(authorId));
+  public delete(authorId: string, product: Product): Observable<string> {
+    return this.httpClient.delete<string>(`${this.BASE_URL}/bp/products?id=${product.id}`, this.buildHeader(authorId));
   }
 
   public verify(authorId: string, product: Product): Observable<boolean> {

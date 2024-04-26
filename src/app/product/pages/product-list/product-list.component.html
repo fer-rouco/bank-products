@@ -5,3 +5,18 @@
 <div>
   <custom-table [rowObjects]="productsToShow" [columnDefinitions]="columnDefinition" [actions]="tableActions" ></custom-table>
 </div>
+
+@if(showDeleteModal) {
+  <div class="modal" >
+    <panel title="Estas seguro de eliminar el producto {{productToDelete?.name}}?">
+      <div class="row">
+        <div class="col center">
+          <custom-button label="Cancelar" (click)="cancelModal()" [primary]="false"></custom-button>
+        </div>
+        <div class="col center">
+          <custom-button label="Aceptar" (click)="acceptModal()" ></custom-button>
+        </div>
+      </div>
+    </panel>
+  </div>
+}

@@ -23,7 +23,10 @@ export class ProductListComponent implements OnInit {
 
   public searchModel: WritableSignal<SearchModel | undefined> = signal(undefined);
 
-  private subject: Subject<any> = new Subject();
+  private searchDebounceSubject: Subject<any> = new Subject();
+
+  public showDeleteModal: boolean = false;
+  public productToDelete: Product | undefined;
 
   constructor(
     @Inject(Router) protected router: Router,
@@ -44,23 +47,28 @@ export class ProductListComponent implements OnInit {
         this.productService.setProduct(product);
         this.router.navigateByUrl('/product-edit'); 
       }},
-      { id: 'delete', label: "Borrar", fn: () => {
-        console.log("DELETE!!!");
+      { id: 'delete', label: "Borrar", fn: (product: Product) => {
+        this.productToDelete = product;
+        this.showDeleteModal = true;
       }}
     ];
 
-    this.productService.getAll('123').subscribe((products: Array<Product>) => {
-      this.products = products;
-      this.productsToShow = this.products;
-    });
+    this.fetch();
 
-    this.subject.pipe(
+    this.searchDebounceSubject.pipe(
       debounceTime(500)
     ).subscribe((name: string) => this.filterByName(name));
   }
 
+  fetch(): void {
+    this.productService.getAll('123').subscribe((products: Array<Product>) => {
+      this.products = products;
+      this.productsToShow = this.products;
+    });
+  }
+
   onSearchChange(text: string): void {
-    this.subject.next(text);
+    this.searchDebounceSubject.next(text);
   }
 
   filterByName(name: string): void {
@@ -70,6 +78,23 @@ export class ProductListComponent implements OnInit {
   navigateToAddPage(): void {
     this.productService.setProduct(undefined);
     this.router.navigateByUrl('/product-edit');
+  }
+
+  acceptModal(): void {
+    if (this.productToDelete) {
+      this.productService.delete('123', this.productToDelete).subscribe(() => {
+        this.showDeleteModal = false;
+        this.fetch();
+      },
+      () => {
+        this.showDeleteModal = false;
+        this.fetch();
+      });
+    } 
+  }
+
+  cancelModal(): void {
+    this.showDeleteModal = false;
   }
 
 }
