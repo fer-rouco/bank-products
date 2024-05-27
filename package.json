@@ -1,11 +1,11 @@
 {
-  "homepage": "https://fer-rouco.github.io/bank-products",
+  "homepage": "https://fer-rouco.github.io/bank-products/",
   "name": "bank-products",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href /bank-products/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "predeploy": "npm run build",
